@@ -3,7 +3,7 @@ import React from "react";
 class SongForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { songUrl: '' };
+        this.state = {songUrl: ''};
     }
 
     mySubmitHandler = (event) => {
@@ -21,10 +21,16 @@ class SongForm extends React.Component {
             <form onSubmit={this.mySubmitHandler}>
                 <label>
                     Song URL:
-                    <input type='text' name='song' value={this.state.songUrl} onChange={this.myChangeHandler} />
+                    <input type='text' name='song' value={this.state.songUrl} onChange={this.myChangeHandler}/>
                 </label>
+                <br/>
+                <div>
+                    <input type="button" value="Play" onClick={this.props.play}/>
+                    <input type="button" value="Pause" onClick={this.props.pause}/>
+                </div>
             </form>
         );
     }
 }
+
 export default SongForm

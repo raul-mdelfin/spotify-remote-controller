@@ -90,6 +90,28 @@ class App extends Component {
         })
     }
 
+    pause = () => {
+        $.ajax({
+            url: "https://api.spotify.com/v1/me/player/pause",
+            type: "PUT",
+            contentType: 'application/json',
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader("Authorization", "Bearer " + this.state.token);
+            },
+        })
+    }
+
+    play = () => {
+        $.ajax({
+            url: "https://api.spotify.com/v1/me/player/play",
+            type: "PUT",
+            contentType: 'application/json',
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader("Authorization", "Bearer " + this.state.token);
+            },
+        })
+    }
+
     componentDidMount() {
         // Set token
         let _token = wHash.access_token;
@@ -108,7 +130,12 @@ class App extends Component {
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo"/>
                     <div className="inline-form">
-                        <SongForm songUrl={""} onChangeSong={this.onChangeSong}/>
+                        <SongForm
+                            songUrl={""}
+                            onChangeSong={this.onChangeSong}
+                            play={this.play}
+                            pause={this.pause}
+                        />
                     </div>
                     <div className="content">
                         {!this.state.token && (
