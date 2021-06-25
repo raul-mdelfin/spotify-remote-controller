@@ -56,7 +56,21 @@ class App extends Component {
                 xhr.setRequestHeader("Authorization", "Bearer " + token);
             },
             success: (data) => {
-                if (data.item != null) {
+                if (data == null && token != null) {
+                    this.setState({
+                        token: token,
+                        item: {
+                            album: {
+                                images: [{url: ""}]
+                            },
+                            name: "",
+                            artists: [{name: ""}],
+                            duration_ms: 0,
+                        },
+                        is_playing: "Nothing",
+                        progress_ms: 0,
+                    });
+                } else {
                     this.setState({
                         token: token,
                         item: data.item,
@@ -85,7 +99,8 @@ class App extends Component {
                 xhr.setRequestHeader("Authorization", "Bearer " + this.state.token);
             },
             success: (data) => {
-                this.getCurrentlyPlaying(this.state.token)
+                setTimeout(() => {  this.getCurrentlyPlaying(this.state.token) }, 500);
+
             }
         })
     }
